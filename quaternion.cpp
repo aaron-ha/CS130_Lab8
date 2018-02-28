@@ -14,11 +14,11 @@ float sqr(float t)
 quaternion slerp(float u, const quaternion& q0, const quaternion& q1)
 {
     //TODO: implement me!
-	float dot = dot(q0,q1);
+	float dot_prod = dot(q0,q1);
 
-	if(dot < 0.0f){
-		q1 = -q1;
-		dot = -dot;
+	if(dot_prod < 0.0f){
+		q1.inv();
+		dot_prod = -dot_prod;
 	}
 	
 	return pow((q1*q0.inv()),u)*q0;
