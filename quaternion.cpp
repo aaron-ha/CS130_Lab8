@@ -14,21 +14,29 @@ float sqr(float t)
 quaternion slerp(float u, const quaternion& q0, const quaternion& q1)
 {
     //TODO: implement me!
-    return q0;
+	float dot = dot(q0,q1);
+
+	if(dot < 0.0f){
+		q1 = -q1;
+		dot = -dot;
+	}
+	
+	return pow((q1*q0.inv()),u)*q0;
 }
 
 void quaternion::from_angle_and_axis(float angle,const vec3& axis)
 {
-    //TODO: compute the quaternion parameters (s,v) from the input rotation angle (in degrees) and axis
-    // s = 
-    // v =
+    //TODO: comute the quaternion parameters (s,v) from the input rotation angle (in degrees) and axis
+	angle = angle * M_PI / 180;
+    s = cos(angle/2); 
+    v = sin(angle/2) * axis.normalized();
 }
 
 void quaternion::to_angle_and_axis(float& angle,vec3& axis) const
 {
     //TODO: compute the angle (in degrees) and the axis of the rotation, from the quaternion parameters (s,v)
-    // angle = 
-    // axis =
+	angle = atan((v.magnitude()/s)* 180 / M_PI)*2;
+    axis = (v/v.magnitude()).normalized();
 }
 
 quaternion pow(const quaternion& q, float r)

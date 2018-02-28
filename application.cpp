@@ -112,19 +112,19 @@ void application::get_test_parameters(std::pair<float,vec3>& start_rotation,std:
 vec3 Interpolate_Position(const vec3& pos0, const vec3& pos1, float u)
 {
     //TODO: Correct the calculations below
-    return pos0;
+	return (1-u)*pos0 + u*pos1;
 }
 
 axis_angle Interpolate_Axis_Angle(const axis_angle& AA0, const axis_angle& AA1, float u)
 {
     //TODO: Correct the calculations below
-    return axis_angle(AA0.w*u);
+    return axis_angle(AA0.w*(1-u) + AA1.w*u);
 }
 
 mat4 Interpolate_Rotation_Matrix(const mat4& R0,const mat4& R1, float u)
 {
     //TODO: Correct the calculations below
-    return R0*u;
+    return (R0*(1-u) + R1*u);
 }
 
 void application::apply_multiview_transform(int view_index,const std::string& viewname,const std::pair<float,vec3>& start_rotation,const std::pair<float,vec3>& end_rotation)
